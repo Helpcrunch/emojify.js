@@ -1,4 +1,5 @@
 node_modules
+npm-debug.log
 vendor
 tests.browserified.js
 
@@ -7,3 +8,5 @@ tests.browserified.js
 .idea
 *.iml
 *.sublime-project
+
+.DS_Store

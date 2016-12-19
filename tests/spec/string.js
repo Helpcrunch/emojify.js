@@ -9,21 +9,21 @@ JS.Test.describe('emojify used with flat strings', function() {
         });
 
         this.it('works with spacing before :)', function() {
-            var text = " :)";
+            var text = "test :)";
             var result = emojify.replace(text);
-            this.assertEqual(' <img align=\'absmiddle\' alt=\':smile:\' class=\'emoji\' src=\'images/emoji/smile.png\' title=\':smile:\' />', result);
+            this.assertEqual('test <img align=\'absmiddle\' alt=\':smile:\' class=\'emoji\' src=\'images/emoji/smile.png\' title=\':smile:\' />', result);
         });
 
         this.it('works with spacing after :)', function() {
-            var text = ":) ";
+            var text = ":) test";
             var result = emojify.replace(text);
-            this.assertEqual('<img align=\'absmiddle\' alt=\':smile:\' class=\'emoji\' src=\'images/emoji/smile.png\' title=\':smile:\' /> ', result);
+            this.assertEqual('<img align=\'absmiddle\' alt=\':smile:\' class=\'emoji\' src=\'images/emoji/smile.png\' title=\':smile:\' /> test', result);
         });
 
         this.it('works with spacing before and after :)', function() {
-            var text = " :) ";
+            var text = "test :) test";
             var result = emojify.replace(text);
-            this.assertEqual(' <img align=\'absmiddle\' alt=\':smile:\' class=\'emoji\' src=\'images/emoji/smile.png\' title=\':smile:\' /> ', result);
+            this.assertEqual('test <img align=\'absmiddle\' alt=\':smile:\' class=\'emoji\' src=\'images/emoji/smile.png\' title=\':smile:\' /> test', result);
         });
 
         this.it('does not insert emoji into the middle of words', function () {
@@ -32,14 +32,14 @@ JS.Test.describe('emojify used with flat strings', function() {
             this.assertEqual(text, result);
         });
 
-        this.it('does not insert emoji at the end of a word, unless it is at the end', function () {
+        this.it('insert emoji at the end of a word', function () {
             var text = "hey:)";
             var result = emojify.replace(text);
             this.assert(text !== result);
 
             text = "hey:) there";
             result = emojify.replace(text);
-            this.assertEqual(text, result);
+            this.assert(text !== result);
         });
     });
 
@@ -107,10 +107,16 @@ JS.Test.describe('emojify used with flat strings', function() {
             this.assertEqual('end of string with space <img align=\'absmiddle\' alt=\':smile:\' class=\'emoji\' src=\'images/emoji/smile.png\' title=\':smile:\' />', result);
         });
 
-        this.it("doesn't emojify words ending in `'d`", function () {
-            var text = "I&#x27;d better not see emoji in this string; that'd suck";
+        this.it("emojify words ending in `&#x27;d` cause it's not our case", function () {
+            var text = "I&#x27;d like to see emoji in this string";
             var result = emojify.replace(text);
-            this.assertEqual("I&#x27;d better not see emoji in this string; that'd suck", result);
+            this.assertEqual("I&#x27<img align='absmiddle' alt=':grinning:' class='emoji' src='images/emoji/grinning.png' title=':grinning:' /> like to see emoji in this string", result);
+        });
+
+        this.it("doesn't emojify words ending in `'d`", function () {
+            var text = "I'd better not see emoji in this string; that'd suck";
+            var result = emojify.replace(text);
+            this.assertEqual("I'd better not see emoji in this string; that'd suck", result);
         });
 
         this.it("interprets :o and :O", function () {

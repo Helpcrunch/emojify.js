@@ -214,7 +214,7 @@
 
                     var hasWhitespaceAfter = isWhitespace(input.charAt(m.length + index));
                     /* Has a whitespace after? */
-                    if(hasWhitespaceAfter && hasEmojiBefore) { return success(); }
+                    if(hasWhitespaceAfter) { return success(); }
 
                     return;
                 }
