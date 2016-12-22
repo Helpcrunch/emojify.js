@@ -77,16 +77,21 @@
                 });
             }
 
-            function initMegaRe() {
+            function getMegaReString() {
+                emoticonsProcessed = initEmoticonsProcessed();
                 /* The source for our mega-regex */
-                var mega = emoticonsProcessed
-                        .map(function(v) {
-                            var re = v[0];
-                            var val = re.source || re;
-                            val = val.replace(/(^|[^\[])\^/g, '$1');
-                            return "(" + val + ")";
-                        })
-                        .join('|');
+                return emoticonsProcessed
+                  .map(function(v) {
+                      var re = v[0];
+                      var val = re.source || re;
+                      val = val.replace(/(^|[^\[])\^/g, '$1');
+                      return "(" + val + ")";
+                  })
+                  .join('|');
+            }
+
+            function initMegaRe() {
+                var mega = getMegaReString();
 
                 /* The regex used to find emoji */
                 return new RegExp(mega, "gi");
@@ -365,6 +370,8 @@
                         }
                     });
                 },
+
+                getMegaRe: getMegaReString,
 
                 replace: emojifyString,
 
