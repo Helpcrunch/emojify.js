@@ -265,8 +265,11 @@
                 }
 
                 // Get the window object from the passed element.
-                var doc = el.ownerDocument,
-                    win = doc.defaultView || doc.parentWindow;
+                var doc = el.ownerDocument;
+                if (!doc) {
+                    return;
+                }
+                var win = doc.defaultView || doc.parentWindow;
 
                 var treeTraverse = function (parent, cb){
                     var child;
