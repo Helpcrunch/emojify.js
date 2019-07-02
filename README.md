@@ -1,5 +1,10 @@
 # emojify.js
 
+HelpCrunch fork of Emojify library.  
+Forked cause needed some very HelpCrunch-specific changes and bugfixes.  
+Used in HelpCrunch service and widget.  
+
+
 [![npm version][ico-npm]][package-npm]
 [![Bower version][ico-bower]][package-bower]
 [![MIT Licensed][ico-license]][license]
